@@ -1,4 +1,5 @@
 import { Form } from "react-router-dom";
+import "./Login.scss";
 
 function Login() {
   return (

@@ -4,32 +4,34 @@ function Register() {
   return (
     <Form method="post" action="/register">
       <h1>Register</h1>
-      <label htmlFor="firstname">
+      <label className="input-sm-gray" htmlFor="firstname">
         <p>Firstname</p>
         <input name="firstname" type="text" id="firstname" />
       </label>
 
-      <label htmlFor="lastname">
+      <label className="input-sm-gray" htmlFor="lastname">
         <p>Lastname</p>
         <input name="lastname" type="text" id="lastname" />
       </label>
 
-      <label htmlFor="pseudo">
+      <label className="input-sm-gray" htmlFor="pseudo">
         <p>Pseudo</p>
         <input name="pseudo" type="text" id="pseudo" />
       </label>
 
-      <label htmlFor="email">
+      <label className="input-sm-gray" htmlFor="email">
         <p>Email</p>
         <input name="email" type="email" id="email" />
       </label>
 
-      <label htmlFor="password">
+      <label className="input-sm-gray" htmlFor="password">
         <p>Password</p>
         <input name="password" type="password" id="password" />
       </label>
 
-      <button type="submit">Register</button>
+      <button className="button-sm-everglade-outlined" type="submit">
+        Register
+      </button>
     </Form>
   );
 }
