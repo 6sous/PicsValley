@@ -16,6 +16,7 @@ import { Public } from './decorators/public.decorator';
 import { Request, Response } from 'express';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { RefreshTokenAuthGuard } from './guards/refresh-token-auth.guard';
+import { ValidateLoginDtoMiddleware } from './middlewares/validateLoginDto.middleware';
 
 @Controller('auth')
 export class AuthController {
@@ -35,9 +36,7 @@ export class AuthController {
   async login(@GetCurrentUser() user: User, @Res() res: Response) {
     const tokens = await this.authService.login(user);
 
-    this.authService.storeTokensInCookies(res, tokens);
-
-    res.send({ status: 'ok', message: 'tokens successfully stored' });
+    return this.authService.storeTokensInCookies(res, tokens);
   }
 
   @Post('logout')

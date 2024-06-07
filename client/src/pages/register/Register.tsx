@@ -1,35 +1,37 @@
-import { ActionFunctionArgs, Form } from "react-router-dom";
+import {
+  ActionFunctionArgs,
+  Form,
+  useActionData,
+  useLoaderData,
+} from "react-router-dom";
+import { registerInputs } from "../../lib/fixtures/form.fixtures";
+import "./Register.scss";
 
 function Register() {
+  const responseFromAction = useActionData();
+
+  console.log(responseFromAction);
+
   return (
-    <Form method="post" action="/register">
-      <h1>Register</h1>
-      <label className="input-sm-gray" htmlFor="firstname">
-        <p>Firstname</p>
-        <input name="firstname" type="text" id="firstname" />
-      </label>
+    <Form id="register-form" method="post" action="/register">
+      {registerInputs.map((input) => (
+        <label
+          key={input.name}
+          htmlFor={input.name}
+          className={input.className}>
+          <p>{input.name}</p>
+          <input
+            key={input.name}
+            type={input.type}
+            name={input.name}
+            placeholder={input.placeholder}
+            id={input.id}
+            autoComplete={input.autocomplete}
+          />
+        </label>
+      ))}
 
-      <label className="input-sm-gray" htmlFor="lastname">
-        <p>Lastname</p>
-        <input name="lastname" type="text" id="lastname" />
-      </label>
-
-      <label className="input-sm-gray" htmlFor="pseudo">
-        <p>Pseudo</p>
-        <input name="pseudo" type="text" id="pseudo" />
-      </label>
-
-      <label className="input-sm-gray" htmlFor="email">
-        <p>Email</p>
-        <input name="email" type="email" id="email" />
-      </label>
-
-      <label className="input-sm-gray" htmlFor="password">
-        <p>Password</p>
-        <input name="password" type="password" id="password" />
-      </label>
-
-      <button className="button-sm-everglade-outlined" type="submit">
+      <button className="button-sm-everglade-fullfilled" type="submit">
         Register
       </button>
     </Form>

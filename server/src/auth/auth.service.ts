@@ -89,8 +89,8 @@ export class AuthService {
   async validateUser(username: string, password: string) {
     const user = await this.userService.getUserByEmail(username);
 
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      throw new ForbiddenException('Invalid credentials');
+    if (!(await bcrypt.compare(password, user.password))) {
+      throw new ForbiddenException('Invalid credentials: wrong password!');
     }
 
     const { password: _, ...result } = user;
