@@ -16,7 +16,6 @@ import { Public } from './decorators/public.decorator';
 import { Request, Response } from 'express';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { RefreshTokenAuthGuard } from './guards/refresh-token-auth.guard';
-import { ValidateLoginDtoMiddleware } from './middlewares/validateLoginDto.middleware';
 
 @Controller('auth')
 export class AuthController {

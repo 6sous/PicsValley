@@ -4,7 +4,15 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  Matches,
+  MinLength,
 } from 'class-validator';
+import {
+  ContainsLowercase,
+  ContainsNumber,
+  ContainsSpecialCharacter,
+  ContainsUppercase,
+} from 'src/auth/decorators/password-validation.decorator';
 
 export class CreateUserDto {
   @IsDefined()
@@ -12,6 +20,7 @@ export class CreateUserDto {
   @IsString()
   firstname: string;
 
+  @IsDefined()
   @IsNotEmpty()
   @IsString()
   lastname: string;
@@ -20,10 +29,18 @@ export class CreateUserDto {
   @IsString()
   pseudo: string;
 
+  @IsDefined()
+  @IsNotEmpty()
   @IsEmail()
   email: string;
 
   @IsNotEmpty()
+  @IsString()
+  @MinLength(6, { message: 'Password must be at least 6 characters long' })
+  @ContainsLowercase()
+  @ContainsUppercase()
+  @ContainsNumber()
+  @ContainsSpecialCharacter()
   password: string;
 
   refreshToken?: string = null;

@@ -1,9 +1,4 @@
-import {
-  ActionFunctionArgs,
-  Form,
-  useActionData,
-  useLoaderData,
-} from "react-router-dom";
+import { ActionFunctionArgs, Form, useActionData } from "react-router-dom";
 import { registerInputs } from "../../lib/fixtures/form.fixtures";
 import "./Register.scss";
 
