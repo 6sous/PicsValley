@@ -15,7 +15,8 @@
     grid-template-columns: 1fr 1fr;
     box-shadow: 0 0 0.5rem 0.5rem rgb(0 0 0 / 10%);
 
-    & > label:not(:first-child, :nth-child(2)) {
+    & > label:not(:first-child, :nth-child(2)),
+    .errors-hint {
       grid-column: span 2;
     }
   }

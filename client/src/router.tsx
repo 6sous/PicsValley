@@ -5,7 +5,8 @@ import {
 } from "react-router-dom";
 import App from "./pages/home/App";
 import Login, { loginAction } from "./pages/login/Login";
-import Register, { registerAction } from "./pages/register/Register";
+import { registerAction } from "./lib/functions/actions/register.action";
+import Register from "./pages/register/Register";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(

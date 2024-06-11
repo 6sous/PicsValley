@@ -45,10 +45,13 @@ export class UserService {
       });
 
       if (existingUser) {
-        throw new ForbiddenException('User already exists', {
-          cause: new Error(),
-          description: `User with email ${existingUser.email} or pseudo ${existingUser.pseudo} already exists.`,
-        });
+        throw new ForbiddenException(
+          `User with email ${existingUser.email} or pseudo ${existingUser.pseudo} already exists.`,
+          {
+            cause: new Error(),
+            description: 'User already exists',
+          },
+        );
       }
 
       return await this.prisma.user.create({

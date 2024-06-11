@@ -16,7 +16,7 @@ export function ContainsNumber(validationOptions?: ValidationOptions) {
           return typeof value === 'string' && /(?=.*[0-9])/.test(value);
         },
         defaultMessage(args: ValidationArguments) {
-          return 'Le mot de passe doit contenir au moins un chiffre';
+          return `${args.property} must contain at least one number`;
         },
       },
     });
@@ -35,7 +35,7 @@ export function ContainsLowercase(validationOptions?: ValidationOptions) {
           return typeof value === 'string' && /(?=.*[a-z])/.test(value);
         },
         defaultMessage(args: ValidationArguments) {
-          return 'Le mot de passe doit contenir au moins une lettre minuscule';
+          return `${args.property} must contain at least one lowercase letter`;
         },
       },
     });
@@ -54,7 +54,7 @@ export function ContainsUppercase(validationOptions?: ValidationOptions) {
           return typeof value === 'string' && /(?=.*[A-Z])/.test(value);
         },
         defaultMessage(args: ValidationArguments) {
-          return 'Le mot de passe doit contenir au moins une lettre majuscule';
+          return `${args.property} must contain at least one uppercase letter`;
         },
       },
     });
@@ -75,7 +75,7 @@ export function ContainsSpecialCharacter(
           return typeof value === 'string' && /(?=.*[!@#$%^&*])/.test(value);
         },
         defaultMessage(args: ValidationArguments) {
-          return 'Le mot de passe doit contenir au moins un caractère spécial (!@#$%^&*)';
+          return `${args.property} must contain at least one special character (!@#$%^&*)`;
         },
       },
     });

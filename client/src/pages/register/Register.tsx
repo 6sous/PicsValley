@@ -1,11 +1,13 @@
-import { ActionFunctionArgs, Form, useActionData } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
 import { registerInputs } from "../../lib/fixtures/form.fixtures";
 import "./Register.scss";
+import { ActionErrorResponse } from "../../lib/types/error-response.type";
+import ErrorMessages from "../../components/error/ErrorMessages";
 
 function Register() {
-  const responseFromAction = useActionData();
+  const registerActionResponse = useActionData() as ActionErrorResponse;
 
-  console.log(responseFromAction);
+  console.log(registerActionResponse);
 
   return (
     <Form id="register-form" method="post" action="/register">
@@ -29,24 +31,11 @@ function Register() {
       <button className="button-sm-everglade-fullfilled" type="submit">
         Register
       </button>
+      {registerActionResponse && (
+        <ErrorMessages response={registerActionResponse} />
+      )}
     </Form>
   );
 }
 
 export default Register;
-
-export async function registerAction({ request }: ActionFunctionArgs) {
-  const formData = Object.fromEntries(await request.formData());
-  const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/auth/register`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    }
-  );
-
-  return response;
-}

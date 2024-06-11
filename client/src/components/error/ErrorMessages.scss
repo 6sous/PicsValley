@@ -1,0 +1,14 @@
+.errors-hint {
+  gap: 0.5rem;
+  padding: 1rem;
+  color: var(--tomato-600);
+  background-color: var(--tomato-100);
+  border: 1px solid var(--tomato-200);
+  border-radius: 0.25rem;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
