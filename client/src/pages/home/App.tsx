@@ -6,6 +6,8 @@ function App() {
     <>
       <Link to="/login">login</Link>
       <Link to="/register">register</Link>
+
+      <button>refresh</button>
     </>
   );
 }

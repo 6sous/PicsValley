@@ -26,18 +26,3 @@ function Login() {
 }
 
 export default Login;
-
-export async function loginAction({ request }: { request: Request }) {
-  const formData = Object.fromEntries(await request.formData());
-  console.log(formData);
-
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  });
-
-  return response;
-}

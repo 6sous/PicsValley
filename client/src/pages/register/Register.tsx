@@ -7,8 +7,6 @@ import ErrorMessages from "../../components/error/ErrorMessages";
 function Register() {
   const registerActionResponse = useActionData() as ActionErrorResponse;
 
-  console.log(registerActionResponse);
-
   return (
     <Form id="register-form" method="post" action="/register">
       {registerInputs.map((input) => (

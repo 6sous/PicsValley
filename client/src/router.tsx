@@ -3,10 +3,14 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import App from "./pages/home/App";
-import Login, { loginAction } from "./pages/login/Login";
-import { registerAction } from "./lib/functions/actions/register.action";
 import Register from "./pages/register/Register";
+import Login from "./pages/login/Login";
+import App from "./pages/home/App";
+
+import {
+  loginAction,
+  registerAction,
+} from "./lib/functions/actions/auth.action";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
