@@ -1,0 +1,71 @@
+@use "../../scss/button.scss" as *;
+@use "../../scss/input.scss" as *;
+
+.auth-page {
+  background-image: url("../../assets/rotated_bg (1).jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100dvh;
+  padding: 1rem;
+
+  display: grid;
+  align-items: center;
+  justify-content: center;
+
+  #auth-form {
+    background-color: rgba(white, 0.8);
+    backdrop-filter: blur(8px);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    height: 100%;
+    width: clamp(256px, calc(100vw - 2rem), 500px);
+    box-shadow: 0 0 0.5rem 0.5rem rgb(0 0 0 / 10%);
+
+    overflow-y: auto;
+    scrollbar-width: none; /* Pour Firefox */
+
+    .logo {
+      max-width: 200px;
+    }
+
+    .input {
+      @include input(md, "greenay");
+    }
+
+    .forgot-password-button {
+      @include button(md, "holly", "link");
+      text-align: right;
+    }
+
+    .submit-button {
+      @include button(md, "holly");
+    }
+
+    .auth-link {
+      color: var(--holly-800);
+      > a {
+        text-decoration: none;
+        @include button(md, "holly", "link");
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .auth-page {
+    padding: 0;
+    justify-content: flex-end;
+
+    #auth-form {
+      padding: 3rem;
+      grid-column: 2;
+      width: 500px;
+
+      scrollbar-width: inherit;
+    }
+  }
+}

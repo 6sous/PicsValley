@@ -29,7 +29,10 @@ export class AuthService {
   }
 
   async login(user: User) {
-    const tokens = await this.getTokens(user.id);
+    const tokens = await this.getTokens({
+      userId: user.id,
+      email: user.email,
+    });
 
     const hashedRefreshToken = await this.hash(tokens.refreshToken);
 
@@ -52,9 +55,9 @@ export class AuthService {
     });
   }
 
-  async refreshAccessToken(userId: string, refreshToken: string) {
+  async refreshAccessToken(email: string, refreshToken: string) {
     try {
-      const user = await this.userService.getUserById(userId);
+      const user = await this.userService.getUserByEmail(email);
 
       if (!user || !user.refreshToken) {
         throw new ForbiddenException(
@@ -68,7 +71,10 @@ export class AuthService {
         throw new ForbiddenException('Access Denied: Invalid refresh token');
       }
 
-      const tokens = await this.getTokens(user.id);
+      const tokens = await this.getTokens({
+        userId: user.id,
+        email: user.email,
+      });
 
       const hashedRefreshToken = await this.hash(tokens.refreshToken);
 
@@ -118,8 +124,8 @@ export class AuthService {
     }
   }
 
-  async getTokens(userId: string) {
-    const payload = { sub: userId };
+  async getTokens({ userId, email }: { userId: string; email: string }) {
+    const payload = { sub: { userId, email } };
 
     const [access_token, refresh_token] = [
       this.jwtService.sign(payload, {
@@ -148,6 +154,5 @@ export class AuthService {
       sameSite: 'lax',
       expires: new Date(Date.now() + COOKIE_EXPIRATION.REFRESH_TOKEN),
     });
-    res.send({ status: 'ok', message: 'tokens successfully stored' });
   }
 }

@@ -6,6 +6,7 @@ import {
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class UserService {
@@ -23,8 +24,18 @@ export class UserService {
     return user;
   }
 
-  async getUserById(id: string) {
-    const user = await this.prisma.user.findUnique({ where: { id } });
+  async getUserProfile(id: string) {
+    const user = await this.prisma.user.findUnique({
+      select: {
+        id: true,
+        firstname: true,
+        lastname: true,
+        pseudo: true,
+        email: true,
+        createdAt: true,
+      },
+      where: { id: id },
+    });
 
     if (!user) {
       throw new NotFoundException('User not found');

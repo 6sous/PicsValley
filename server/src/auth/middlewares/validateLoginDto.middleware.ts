@@ -17,9 +17,16 @@ export class ValidateLoginDtoMiddleware implements NestMiddleware {
 
     const errors = await validate(loginDto);
     if (errors.length > 0) {
-      const errorMessage = errors.map((error) =>
-        Object.values(error.constraints),
-      );
+      const errorMessage = errors.map((error) => {
+        return {
+          field: error.property,
+          errors: Object.entries(error.constraints || {}).map(
+            ([key, value]) => {
+              return { rule: key, errorMessage: value };
+            },
+          ),
+        };
+      });
       throw new UnauthorizedException(errorMessage);
     }
     next();

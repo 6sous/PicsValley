@@ -23,9 +23,15 @@ async function bootstrap() {
       whitelist: true,
       exceptionFactory: (validationErrors: ValidationError[] = []) => {
         const formattedErrors = validationErrors.map((error) => {
+          console.log(error);
+
           return {
             field: error.property,
-            errors: Object.values(error.constraints || {}),
+            errors: Object.entries(error.constraints || {}).map(
+              ([key, value]) => {
+                return { rule: key, errorMessage: value };
+              },
+            ),
           };
         });
         return new BadRequestException({

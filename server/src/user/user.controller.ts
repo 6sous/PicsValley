@@ -22,7 +22,7 @@ export class UserController {
 
   @Get('profile')
   async getMe(@GetCurrentUser() payload: TokenPayload) {
-    return await this.userService.getUserById(payload.sub);
+    return await this.userService.getUserProfile(payload.sub.userId);
   }
 
   @Put()

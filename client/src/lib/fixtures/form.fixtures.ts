@@ -5,7 +5,6 @@ export class Input {
     public placeholder: string,
     public autocomplete: string = "off",
     public required: boolean = true,
-    public className: string = "input-sm-gray",
     public id: string = name
   ) {}
 }
@@ -28,4 +27,9 @@ export const registerInputs = [
     "Confirm your password",
     "new-password"
   ),
+];
+
+export const loginInputs = [
+  new Input("email", "username", "Enter your email address", "email"),
+  new Input("password", "password", "Enter your password", "current-password"),
 ];

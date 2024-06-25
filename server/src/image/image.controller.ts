@@ -1,36 +1,3 @@
-// import {
-//   Controller,
-//   Get,
-//   Param,
-//   Post,
-//   UploadedFile,
-//   UseInterceptors,
-// } from '@nestjs/common';
-// import { ImageService } from './image.service';
-// import { FileInterceptor } from '@nestjs/platform-express';
-// import { GetCurrentUser } from 'src/auth/decorators/get-current-user.decorator';
-
-// @Controller('image')
-// export class ImageController {
-//   constructor(private readonly imageService: ImageService) {}
-
-//   @Post('upload')
-//   @UseInterceptors(FileInterceptor('file'))
-//   async uploadImage(
-//     @UploadedFile() file: Express.Multer.File,
-//     @GetCurrentUser('id') userId: string,
-//   ) {
-//     const image = await this.imageService.uploadImage(file, userId);
-//     return { id: image.id, url: image.url };
-//   }
-
-//   @Get(':id')
-//   async getOptimizedImage(@Param('id') id: string) {
-//     const optimizedUrl = await this.imageService.getOptimizedImageUrl(id);
-//     return { url: optimizedUrl };
-//   }
-// }
-
 import {
   Controller,
   Get,
@@ -66,7 +33,13 @@ export class ImageController {
 
   @Get(':id')
   async getOptimizedImage(@Param('id') id: string) {
-    const optimizedUrl = await this.imageService.getOptimizedImageUrl(id);
+    const optimizedUrl = await this.imageService.getOptimizedImageById(id);
     return { url: optimizedUrl };
+  }
+
+  @Get()
+  async getAllImages() {
+    const images = await this.imageService.getAllImages();
+    return images;
   }
 }

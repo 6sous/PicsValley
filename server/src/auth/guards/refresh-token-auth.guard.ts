@@ -14,7 +14,6 @@ export class RefreshTokenAuthGuard extends AuthGuard('jwt-refresh') {
         message: 'Refresh token is missing',
       });
     }
-    console.log(request.cookies);
 
     return super.canActivate(context);
   }

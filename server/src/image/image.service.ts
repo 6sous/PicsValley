@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -23,15 +23,13 @@ export class ImageService {
     return image;
   }
 
-  async getOptimizedImageUrl(imageId: string) {
+  async getOptimizedImageById(imageId: string) {
     const image = await this.prisma.image.findUnique({
       where: { id: imageId },
     });
 
-    console.log(image);
-
     if (!image) {
-      throw new Error('Image not found');
+      throw new BadRequestException('Image not found');
     }
 
     const cloudinaryUrl = new URL(image.url);
@@ -39,5 +37,9 @@ export class ImageService {
     const twicPicsUrl = `https://${process.env.TWICPICS_DOMAIN}${cloudinaryUrl.pathname}`;
 
     return twicPicsUrl;
+  }
+
+  getAllImages() {
+    return this.prisma.image.findMany();
   }
 }

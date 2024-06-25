@@ -1,6 +1,11 @@
+export type Error = {
+  rule: string;
+  errorMessage: string;
+};
+
 export type FieldError = {
   field: string;
-  errors: string[];
+  errors: Error[];
 };
 
 export type ActionErrorResponse = {

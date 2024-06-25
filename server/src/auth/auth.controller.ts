@@ -16,6 +16,7 @@ import { Public } from './decorators/public.decorator';
 import { Request, Response } from 'express';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { RefreshTokenAuthGuard } from './guards/refresh-token-auth.guard';
+import { PayloadSub } from './types/token-payload.type';
 
 @Controller('auth')
 export class AuthController {
@@ -33,15 +34,31 @@ export class AuthController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   async login(@GetCurrentUser() user: User, @Res() res: Response) {
-    const tokens = await this.authService.login(user);
+    try {
+      const tokens = await this.authService.login(user);
 
-    return this.authService.storeTokensInCookies(res, tokens);
+      this.authService.storeTokensInCookies(res, tokens);
+
+      const { refreshToken: _, updatedAt: __, ...storedUser } = user;
+
+      res.send({
+        status: 'ok',
+        message: 'tokens successfully stored',
+        data: storedUser,
+      });
+    } catch (error) {
+      console.error('Login error:', error);
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
+        status: 'error',
+        message: 'An error occurred during login.',
+      });
+    }
   }
 
   @Post('logout')
   @HttpCode(HttpStatus.OK)
-  async logout(@GetCurrentUser('sub') userId: string, @Res() res: Response) {
-    await this.authService.logout(userId);
+  async logout(@GetCurrentUser('sub') sub: PayloadSub, @Res() res: Response) {
+    await this.authService.logout(sub.userId);
     res.clearCookie('access_token');
     res.clearCookie('refresh_token').send({ status: 'ok' });
   }
@@ -50,7 +67,7 @@ export class AuthController {
   @UseGuards(RefreshTokenAuthGuard)
   @Post('refresh')
   async refresh(
-    @GetCurrentUser('sub') userId: string,
+    @GetCurrentUser('sub') sub: PayloadSub,
     @Res() res: Response,
     @Req() req: Request,
   ) {
@@ -58,10 +75,15 @@ export class AuthController {
 
     try {
       const newTokens = await this.authService.refreshAccessToken(
-        userId,
+        sub.email,
         refreshToken,
       );
-      return this.authService.storeTokensInCookies(res, newTokens);
+      this.authService.storeTokensInCookies(res, newTokens);
+
+      res.send({
+        status: 'ok',
+        message: 'tokens successfully stored',
+      });
     } catch (error) {
       throw error;
     }

@@ -1,5 +1,10 @@
+export type PayloadSub = {
+  userId: string;
+  email: string;
+};
+
 export type TokenPayload = {
-  sub: string;
+  sub: PayloadSub;
   iat: number;
   exp: number;
 };

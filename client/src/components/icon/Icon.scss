@@ -1,0 +1,11 @@
+@use "../../scss/colors.scss" as *;
+
+i.svg-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  fill: currentColor;
+}

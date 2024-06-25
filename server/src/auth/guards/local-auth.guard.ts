@@ -7,8 +7,6 @@ export class LocalAuthGuard extends AuthGuard('local') {
   }
 
   handleRequest(err: any, user: any) {
-    console.log({ error: err }, { user: user });
-
     if (err || !user) {
       throw err || new UnauthorizedException('You should not pass!! 🥸');
     }
